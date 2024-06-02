@@ -6,87 +6,79 @@
       xmlns:local="clr-namespace:GymKW.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="1280" d:DesignWidth="1920"
-      Title="SubscriptionPage">
+      Title="Абонементы">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="10*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 5">
-                <TextBlock Style="{StaticResource MaterialDesignHeadline2TextBlock}" Text="Мой абонемент - "/>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline2TextBlock}" Foreground="Gray" Text="{Binding SubscriptionType.Name}"/>
-            </StackPanel>
-            <Grid Margin="0 0 0 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="Дата начала:" Grid.Column="0"/>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="{Binding StartDate,StringFormat=d,ConverterCulture=ru}" Grid.Column="1" Foreground="Gray"/>
-            </Grid>
-            <Grid Margin="0 0 0 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="Дата окончания:" Grid.Column="0"/>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="{Binding EndDate, StringFormat=d, ConverterCulture=ru}" Grid.Column="1" Foreground="Gray"/>
-            </Grid>
-            <Grid Margin="0 0 0 10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="4*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="Стоимость:" Grid.Column="0"/>
-                <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="{Binding Price}" Grid.Column="1" Foreground="Gray"/>
-            </Grid>
-            <Grid Margin="0 80 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <TextBlock FontSize="25" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Групповые занятия" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <TextBlock FontSize="25" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Персональный тренер" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <TextBlock FontSize="25" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Доступ к залу 24/7" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <TextBlock FontSize="25" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Спа услуги" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <TextBlock FontSize="25" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Индивидуальная программа" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
-                <TextBlock FontSize="25" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Доуступ к Wi-Fi" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+        <ScrollViewer Grid.Row="1" Grid.Column="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 5">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline2TextBlock}" Text="Мой абонемент - "/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline2TextBlock}" Foreground="Gray" Text="{Binding SubscriptionType.Name}"/>
+                </StackPanel>
+                <Grid Margin="0 0 0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="Дата начала:" Grid.Column="0"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="{Binding StartDate,StringFormat=d,ConverterCulture=ru}" Grid.Column="1" Foreground="Gray"/>
+                </Grid>
+                <Grid Margin="0 0 0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="Дата окончания:" Grid.Column="0"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="{Binding EndDate, StringFormat=d, ConverterCulture=ru}" Grid.Column="1" Foreground="Gray"/>
+                </Grid>
+                <Grid Margin="0 0 0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="Стоимость:" Grid.Column="0"/>
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline3TextBlock}" Text="{Binding Price}" Grid.Column="1" Foreground="Gray"/>
+                </Grid>
+                <Grid Margin="0 80 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="25" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Групповые занятия" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <TextBlock FontSize="25" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Персональный тренер" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <TextBlock FontSize="25" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Доступ к залу 24/7" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <TextBlock FontSize="25" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Спа услуги" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <TextBlock FontSize="25" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Индивидуальная программа" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
+                    <TextBlock FontSize="25" Grid.Row="0" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Доуступ к Wi-Fi" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource MaterialDesignBody1TextBlock}"/>
 
-                <Viewbox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
-                    <CheckBox IsChecked="{Binding SubscriptionType.GroupClasses}" IsEnabled="False"/>
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
-                    <CheckBox IsChecked="{Binding SubscriptionType.PersonalCoach}" IsEnabled="False"/>
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
-                    <CheckBox IsChecked="{Binding SubscriptionType.FullTimeAccess}" IsEnabled="False"/>    
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
-                    <CheckBox IsChecked="{Binding SubscriptionType.SpaServices}" IsEnabled="False"/>
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
-                    <CheckBox IsChecked="{Binding SubscriptionType.IndividualTrainingProgramm}" IsEnabled="False"/>
-                </Viewbox>
-                <Viewbox Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
-                    <CheckBox IsChecked="{Binding SubscriptionType.WiFiAccess}" IsEnabled="False"/>
-                </Viewbox>
-            </Grid>
-        </StackPanel>
+                    <Viewbox Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
+                        <CheckBox IsChecked="{Binding SubscriptionType.GroupClasses}" IsEnabled="False"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
+                        <CheckBox IsChecked="{Binding SubscriptionType.PersonalCoach}" IsEnabled="False"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
+                        <CheckBox IsChecked="{Binding SubscriptionType.FullTimeAccess}" IsEnabled="False"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
+                        <CheckBox IsChecked="{Binding SubscriptionType.SpaServices}" IsEnabled="False"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
+                        <CheckBox IsChecked="{Binding SubscriptionType.IndividualTrainingProgramm}" IsEnabled="False"/>
+                    </Viewbox>
+                    <Viewbox Grid.Row="1" Grid.Column="5" VerticalAlignment="Center" HorizontalAlignment="Center" Width="100">
+                        <CheckBox IsChecked="{Binding SubscriptionType.WiFiAccess}" IsEnabled="False"/>
+                    </Viewbox>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

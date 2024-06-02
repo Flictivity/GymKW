@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GymKW"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="720" MinWidth="1280">
+        Title="Главная" MinHeight="720" MinWidth="1280" WindowState="Maximized">
     <Grid>
         <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
     </Grid>

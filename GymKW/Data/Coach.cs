@@ -17,7 +17,7 @@ namespace GymKW.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Coach()
         {
-            this.Workout = new HashSet<Workout>();
+            this.User = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace GymKW.Data
         public System.DateTime BirthDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Workout> Workout { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }

@@ -1,0 +1,37 @@
+﻿<Page x:Class="GymKW.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GymKW.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnSubs" Content="Мой абонемент" Margin="0 0 10 0" Click="SubBtnClick"/>
+            <Button x:Name="btnWorkouts" Content="Тренировка" Margin="0 0 10 0" Click="WorkoutBtnClick"/>
+            <Button x:Name="btnClients" Content="Клиенты" Margin="0 0 10 0"/>
+            <Button materialDesign:ButtonAssist.CornerRadius="15" 
+                    Style="{StaticResource MaterialDesignRaisedButton}"
+                    Click="ExitAccountBtn_Click">
+                <materialDesign:PackIcon
+                        Kind="ExitToApp"  
+                        VerticalAlignment="Center"/>
+            </Button>
+        </StackPanel>
+        <Frame x:Name="MainFrame" Grid.Column="1" Grid.Row="1"/>
+    </Grid>
+</Page>

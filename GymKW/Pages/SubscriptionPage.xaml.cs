@@ -11,7 +11,7 @@ namespace GymKW.Pages
         public SubscriptionPage()
         {
             InitializeComponent();
-            var sub = App.Connection.Subscription.FirstOrDefault(x => x.Id == 1);
+            var sub = App.Connection.Subscription.OrderByDescending(x => x.Id).FirstOrDefault(x => x.UserID == App.CurrentUser.Id);
             DataContext = sub;
         }
     }

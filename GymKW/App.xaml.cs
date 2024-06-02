@@ -9,5 +9,6 @@ namespace GymKW
     public partial class App : Application
     {
         public static GYMKWEntities Connection = new GYMKWEntities();
+        public static User CurrentUser;
     }
 }

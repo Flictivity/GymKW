@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GYMKWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GYMKWModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Coach">
           <Key>
             <PropertyRef Name="Id" />
@@ -60,7 +60,8 @@
           <Property Name="PhoneNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
           <Property Name="RoleID" Type="int" Nullable="false" />
-          <Property Name="WorkoutID" Type="int" Nullable="false" />
+          <Property Name="WorkoutID" Type="int" />
+          <Property Name="CoachID" Type="int" />
         </EntityType>
         <EntityType Name="Workout">
           <Key>
@@ -71,7 +72,6 @@
           <Property Name="Duration" Type="int" Nullable="false" />
           <Property Name="GoalID" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="CoachID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="WorkoutGoal">
           <Key>
@@ -104,6 +104,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_User_Coach">
+          <End Role="Coach" Type="Self.Coach" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coach">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="CoachID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -117,7 +129,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Workout">
-          <End Role="Workout" Type="Self.Workout" Multiplicity="1" />
+          <End Role="Workout" Type="Self.Workout" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Workout">
@@ -125,18 +137,6 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="WorkoutID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Workout_Coach">
-          <End Role="Coach" Type="Self.Coach" Multiplicity="1" />
-          <End Role="Workout" Type="Self.Workout" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Coach">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Workout">
-              <PropertyRef Name="CoachID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -168,6 +168,10 @@
             <End Role="User" EntitySet="User" />
             <End Role="Subscription" EntitySet="Subscription" />
           </AssociationSet>
+          <AssociationSet Name="FK_User_Coach" Association="Self.FK_User_Coach">
+            <End Role="Coach" EntitySet="Coach" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="User" EntitySet="User" />
@@ -176,39 +180,67 @@
             <End Role="Workout" EntitySet="Workout" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
-          <AssociationSet Name="FK_Workout_Coach" Association="Self.FK_Workout_Coach">
-            <End Role="Coach" EntitySet="Coach" />
-            <End Role="Workout" EntitySet="Workout" />
-          </AssociationSet>
           <AssociationSet Name="FK_Workout_WorkoutGoal" Association="Self.FK_Workout_WorkoutGoal">
             <End Role="WorkoutGoal" EntitySet="WorkoutGoal" />
             <End Role="Workout" EntitySet="Workout" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GYMKWModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GYMKWEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Coach" EntityType="GYMKWModel.Coach" />
+          <EntitySet Name="Role" EntityType="GYMKWModel.Role" />
+          <EntitySet Name="Subscription" EntityType="GYMKWModel.Subscription" />
+          <EntitySet Name="SubscriptionType" EntityType="GYMKWModel.SubscriptionType" />
+          <EntitySet Name="User" EntityType="GYMKWModel.User" />
+          <EntitySet Name="Workout" EntityType="GYMKWModel.Workout" />
+          <EntitySet Name="WorkoutGoal" EntityType="GYMKWModel.WorkoutGoal" />
+          <AssociationSet Name="FK_User_Coach" Association="GYMKWModel.FK_User_Coach">
+            <End Role="Coach" EntitySet="Coach" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Role" Association="GYMKWModel.FK_User_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_SubscriptionType" Association="GYMKWModel.FK_Subscription_SubscriptionType">
+            <End Role="SubscriptionType" EntitySet="SubscriptionType" />
+            <End Role="Subscription" EntitySet="Subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Subscription_User" Association="GYMKWModel.FK_Subscription_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Subscription" EntitySet="Subscription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Workout" Association="GYMKWModel.FK_User_Workout">
+            <End Role="Workout" EntitySet="Workout" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workout_WorkoutGoal" Association="GYMKWModel.FK_Workout_WorkoutGoal">
+            <End Role="WorkoutGoal" EntitySet="WorkoutGoal" />
+            <End Role="Workout" EntitySet="Workout" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Coach">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Patronymic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Workout" Relationship="Self.FK_Workout_Coach" FromRole="Coach" ToRole="Workout" />
+          <NavigationProperty Name="User" Relationship="GYMKWModel.FK_User_Coach" FromRole="Coach" ToRole="User" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Role" FromRole="Role" ToRole="User" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="GYMKWModel.FK_User_Role" FromRole="Role" ToRole="User" />
         </EntityType>
         <EntityType Name="Subscription">
           <Key>
@@ -220,78 +252,78 @@
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="SubscriptionType" Relationship="Self.FK_Subscription_SubscriptionType" FromRole="Subscription" ToRole="SubscriptionType" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Subscription_User" FromRole="Subscription" ToRole="User" />
+          <NavigationProperty Name="SubscriptionType" Relationship="GYMKWModel.FK_Subscription_SubscriptionType" FromRole="Subscription" ToRole="SubscriptionType" />
+          <NavigationProperty Name="User" Relationship="GYMKWModel.FK_Subscription_User" FromRole="Subscription" ToRole="User" />
         </EntityType>
         <EntityType Name="SubscriptionType">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="GroupClasses" Type="Boolean" Nullable="false" />
           <Property Name="PersonalCoach" Type="Boolean" Nullable="false" />
           <Property Name="FullTimeAccess" Type="Boolean" Nullable="false" />
           <Property Name="SpaServices" Type="Boolean" Nullable="false" />
           <Property Name="IndividualTrainingProgramm" Type="Boolean" Nullable="false" />
           <Property Name="WiFiAccess" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Subscription" Relationship="Self.FK_Subscription_SubscriptionType" FromRole="SubscriptionType" ToRole="Subscription" />
+          <NavigationProperty Name="Subscription" Relationship="GYMKWModel.FK_Subscription_SubscriptionType" FromRole="SubscriptionType" ToRole="Subscription" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Passwword" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Patronymic" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Mail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Passwword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="RoleID" Type="Int32" Nullable="false" />
-          <Property Name="WorkoutID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_User_Role" FromRole="User" ToRole="Role" />
-          <NavigationProperty Name="Subscription" Relationship="Self.FK_Subscription_User" FromRole="User" ToRole="Subscription" />
-          <NavigationProperty Name="Workout" Relationship="Self.FK_User_Workout" FromRole="User" ToRole="Workout" />
+          <Property Name="WorkoutID" Type="Int32" />
+          <Property Name="CoachID" Type="Int32" />
+          <NavigationProperty Name="Coach" Relationship="GYMKWModel.FK_User_Coach" FromRole="User" ToRole="Coach" />
+          <NavigationProperty Name="Role" Relationship="GYMKWModel.FK_User_Role" FromRole="User" ToRole="Role" />
+          <NavigationProperty Name="Subscription" Relationship="GYMKWModel.FK_Subscription_User" FromRole="User" ToRole="Subscription" />
+          <NavigationProperty Name="Workout" Relationship="GYMKWModel.FK_User_Workout" FromRole="User" ToRole="Workout" />
         </EntityType>
         <EntityType Name="Workout">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Duration" Type="Int32" Nullable="false" />
           <Property Name="GoalID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CoachID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Coach" Relationship="Self.FK_Workout_Coach" FromRole="Workout" ToRole="Coach" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_Workout" FromRole="Workout" ToRole="User" />
-          <NavigationProperty Name="WorkoutGoal" Relationship="Self.FK_Workout_WorkoutGoal" FromRole="Workout" ToRole="WorkoutGoal" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="GYMKWModel.FK_User_Workout" FromRole="Workout" ToRole="User" />
+          <NavigationProperty Name="WorkoutGoal" Relationship="GYMKWModel.FK_Workout_WorkoutGoal" FromRole="Workout" ToRole="WorkoutGoal" />
         </EntityType>
         <EntityType Name="WorkoutGoal">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Workout" Relationship="Self.FK_Workout_WorkoutGoal" FromRole="WorkoutGoal" ToRole="Workout" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Workout" Relationship="GYMKWModel.FK_Workout_WorkoutGoal" FromRole="WorkoutGoal" ToRole="Workout" />
         </EntityType>
-        <Association Name="FK_Workout_Coach">
-          <End Role="Coach" Type="Self.Coach" Multiplicity="1" />
-          <End Role="Workout" Type="Self.Workout" Multiplicity="*" />
+        <Association Name="FK_User_Coach">
+          <End Type="GYMKWModel.Coach" Role="Coach" Multiplicity="0..1" />
+          <End Type="GYMKWModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Coach">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Workout">
+            <Dependent Role="User">
               <PropertyRef Name="CoachID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Role">
-          <End Role="Role" Type="Self.Role" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="GYMKWModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="GYMKWModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Role">
               <PropertyRef Name="Id" />
@@ -302,8 +334,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subscription_SubscriptionType">
-          <End Role="SubscriptionType" Type="Self.SubscriptionType" Multiplicity="1" />
-          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <End Type="GYMKWModel.SubscriptionType" Role="SubscriptionType" Multiplicity="1" />
+          <End Type="GYMKWModel.Subscription" Role="Subscription" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SubscriptionType">
               <PropertyRef Name="Id" />
@@ -314,8 +346,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Subscription_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Subscription" Type="Self.Subscription" Multiplicity="*" />
+          <End Type="GYMKWModel.User" Role="User" Multiplicity="1" />
+          <End Type="GYMKWModel.Subscription" Role="Subscription" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="Id" />
@@ -326,8 +358,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_Workout">
-          <End Role="Workout" Type="Self.Workout" Multiplicity="1" />
-          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <End Type="GYMKWModel.Workout" Role="Workout" Multiplicity="0..1" />
+          <End Type="GYMKWModel.User" Role="User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Workout">
               <PropertyRef Name="Id" />
@@ -338,8 +370,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Workout_WorkoutGoal">
-          <End Role="WorkoutGoal" Type="Self.WorkoutGoal" Multiplicity="1" />
-          <End Role="Workout" Type="Self.Workout" Multiplicity="*" />
+          <End Type="GYMKWModel.WorkoutGoal" Role="WorkoutGoal" Multiplicity="1" />
+          <End Type="GYMKWModel.Workout" Role="Workout" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkoutGoal">
               <PropertyRef Name="Id" />
@@ -349,40 +381,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GYMKWEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Coach" EntityType="Self.Coach" />
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Subscription" EntityType="Self.Subscription" />
-          <EntitySet Name="SubscriptionType" EntityType="Self.SubscriptionType" />
-          <EntitySet Name="User" EntityType="Self.User" />
-          <EntitySet Name="Workout" EntityType="Self.Workout" />
-          <EntitySet Name="WorkoutGoal" EntityType="Self.WorkoutGoal" />
-          <AssociationSet Name="FK_Workout_Coach" Association="Self.FK_Workout_Coach">
-            <End Role="Coach" EntitySet="Coach" />
-            <End Role="Workout" EntitySet="Workout" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Role" Association="Self.FK_User_Role">
-            <End Role="Role" EntitySet="Role" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subscription_SubscriptionType" Association="Self.FK_Subscription_SubscriptionType">
-            <End Role="SubscriptionType" EntitySet="SubscriptionType" />
-            <End Role="Subscription" EntitySet="Subscription" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Subscription_User" Association="Self.FK_Subscription_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="Subscription" EntitySet="Subscription" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_Workout" Association="Self.FK_User_Workout">
-            <End Role="Workout" EntitySet="Workout" />
-            <End Role="User" EntitySet="User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Workout_WorkoutGoal" Association="Self.FK_Workout_WorkoutGoal">
-            <End Role="WorkoutGoal" EntitySet="WorkoutGoal" />
-            <End Role="Workout" EntitySet="Workout" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -391,82 +390,82 @@
           <EntitySetMapping Name="Coach">
             <EntityTypeMapping TypeName="GYMKWModel.Coach">
               <MappingFragment StoreEntitySet="Coach">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="GYMKWModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Subscription">
             <EntityTypeMapping TypeName="GYMKWModel.Subscription">
               <MappingFragment StoreEntitySet="Subscription">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="SubscriptionTypeID" ColumnName="SubscriptionTypeID" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="SubscriptionTypeID" ColumnName="SubscriptionTypeID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SubscriptionType">
             <EntityTypeMapping TypeName="GYMKWModel.SubscriptionType">
               <MappingFragment StoreEntitySet="SubscriptionType">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="GroupClasses" ColumnName="GroupClasses" />
-                <ScalarProperty Name="PersonalCoach" ColumnName="PersonalCoach" />
-                <ScalarProperty Name="FullTimeAccess" ColumnName="FullTimeAccess" />
-                <ScalarProperty Name="SpaServices" ColumnName="SpaServices" />
-                <ScalarProperty Name="IndividualTrainingProgramm" ColumnName="IndividualTrainingProgramm" />
                 <ScalarProperty Name="WiFiAccess" ColumnName="WiFiAccess" />
+                <ScalarProperty Name="IndividualTrainingProgramm" ColumnName="IndividualTrainingProgramm" />
+                <ScalarProperty Name="SpaServices" ColumnName="SpaServices" />
+                <ScalarProperty Name="FullTimeAccess" ColumnName="FullTimeAccess" />
+                <ScalarProperty Name="PersonalCoach" ColumnName="PersonalCoach" />
+                <ScalarProperty Name="GroupClasses" ColumnName="GroupClasses" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="GYMKWModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="Mail" ColumnName="Mail" />
-                <ScalarProperty Name="Passwword" ColumnName="Passwword" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
                 <ScalarProperty Name="WorkoutID" ColumnName="WorkoutID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Passwword" ColumnName="Passwword" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Workout">
             <EntityTypeMapping TypeName="GYMKWModel.Workout">
               <MappingFragment StoreEntitySet="Workout">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="GoalID" ColumnName="GoalID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CoachID" ColumnName="CoachID" />
+                <ScalarProperty Name="GoalID" ColumnName="GoalID" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WorkoutGoal">
             <EntityTypeMapping TypeName="GYMKWModel.WorkoutGoal">
               <MappingFragment StoreEntitySet="WorkoutGoal">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

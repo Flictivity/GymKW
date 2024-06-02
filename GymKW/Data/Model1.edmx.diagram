@@ -5,19 +5,19 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="85639c9dfc2f4b9b8a50ac624e110631" Name="Diagram1">
-        <EntityTypeShape EntityType="GYMKWModel.Coach" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="GYMKWModel.Role" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="GYMKWModel.Subscription" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="GYMKWModel.SubscriptionType" Width="1.5" PointX="5.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GYMKWModel.User" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="GYMKWModel.Workout" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="GYMKWModel.WorkoutGoal" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
-        <AssociationConnector Association="GYMKWModel.FK_Workout_Coach" ManuallyRouted="false" />
-        <AssociationConnector Association="GYMKWModel.FK_User_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="GYMKWModel.FK_Subscription_SubscriptionType" ManuallyRouted="false" />
-        <AssociationConnector Association="GYMKWModel.FK_Subscription_User" ManuallyRouted="false" />
-        <AssociationConnector Association="GYMKWModel.FK_User_Workout" ManuallyRouted="false" />
-        <AssociationConnector Association="GYMKWModel.FK_Workout_WorkoutGoal" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GYMKWModel.Coach" Width="1.5" PointX="3" PointY="6.125" />
+        <EntityTypeShape EntityType="GYMKWModel.Role" Width="1.5" PointX="3" PointY="9.25" />
+        <EntityTypeShape EntityType="GYMKWModel.Subscription" Width="1.5" PointX="7.5" PointY="1.75" />
+        <EntityTypeShape EntityType="GYMKWModel.SubscriptionType" Width="1.5" PointX="5.25" PointY="6.625" />
+        <EntityTypeShape EntityType="GYMKWModel.User" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="GYMKWModel.Workout" Width="1.5" PointX="3" PointY="1.75" />
+        <EntityTypeShape EntityType="GYMKWModel.WorkoutGoal" Width="1.5" PointX="0.75" PointY="2.125" />
+        <AssociationConnector Association="GYMKWModel.FK_User_Coach" />
+        <AssociationConnector Association="GYMKWModel.FK_User_Role" />
+        <AssociationConnector Association="GYMKWModel.FK_Subscription_SubscriptionType" />
+        <AssociationConnector Association="GYMKWModel.FK_Subscription_User" />
+        <AssociationConnector Association="GYMKWModel.FK_User_Workout" />
+        <AssociationConnector Association="GYMKWModel.FK_Workout_WorkoutGoal" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
